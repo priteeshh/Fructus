@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @Environment(\.dismiss) var dissmiss
+    @AppStorage("isOnboarding") var isOnboarding: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -27,9 +28,47 @@ struct SettingsView: View {
                             
                             Text("Most fruits are naturally low in fat, sodium, and calories. None have cholesterol. Fruits are sources of many essential nutrients, including potassium, dietary fiber, vitamins, and much more.")
                                 .font(.footnote)
-                                
                         }
                     })
+                    
+                    GroupBox(label: SettingsLabelView(labelText: "Customization", labelImage: "paintbrush"), content: {
+                        Divider().padding(.vertical, 4)
+
+                        Text("If you wish, you can restart the application by toggle the switch in this box. That way it starts the onboarding process and you will see the welcome screen again.")
+                            .padding(.vertical, 8)
+                            .frame(minHeight: 60)
+                            .layoutPriority(1)
+                            .font(.footnote)
+                            .multilineTextAlignment(.leading)
+                        
+                        Toggle(isOn: $isOnboarding) {
+                            if isOnboarding {
+                                Text("Reset".uppercased())
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.green)
+                            } else {
+                                Text("Reset".uppercased())
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .padding()
+                        .background {
+                            Color(.tertiarySystemBackground)
+                                .clipShape(RoundedRectangle(cornerRadius: 8.0, style: .continuous))
+                        }
+                    })
+                    
+                    GroupBox(label: SettingsLabelView(labelText: "Developer", labelImage: "apps.iphone"), content: {                        
+                        SettingsRowView(name: "Developer", content: "Preeteesh Remalli")
+                        SettingsRowView(name: "Compatablity", content: "iOS 26")
+                        SettingsRowView(name: "Website", linkLabel: "Link", linkDescription: "https://www.google.com")
+                        SettingsRowView(name: "SwiftUI", content: "6.0")
+                        SettingsRowView(name: "Version", content: "1.0")
+                    })
+                    
+                    
+                    
                 }
                 .navigationTitle("Settings")
                 .navigationBarTitleDisplayMode(.large)
