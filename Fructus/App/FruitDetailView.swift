@@ -1,5 +1,5 @@
 //
-//  FruitDetail.swift
+//  FruitDetailView.swift
 //  Fructus
 //
 //  Created by Preeteesh Remalli on 02/01/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FruitDetail: View {
+struct FruitDetailView: View {
     
     var fruit: Fruit
 
@@ -26,6 +26,8 @@ struct FruitDetail: View {
                         Text(fruit.headline)
                             .font(.headline)
                             .multilineTextAlignment(.leading)
+                        
+                        FruitNutrientsView(fruit: fruit)
                         
                         Text("Learn More about \(fruit.title)".uppercased())
                             .fontWeight(.bold)
@@ -50,5 +52,5 @@ struct FruitDetail: View {
 }
 
 #Preview {
-    FruitDetail(fruit: fruitsData[0])
+    FruitDetailView(fruit: fruitsData[0])
 }
